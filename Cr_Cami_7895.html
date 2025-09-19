@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carta Galáctica para Camila</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Playfair Display', serif;
+            background: #0a0a1a;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            color: #fff;
+            position: relative;
+        }
+        
+        /* Fondo galáctico con estrellas */
+        .galaxy {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: radial-gradient(ellipse at center, #1a1a40 0%, #0a0a1a 70%);
+            overflow: hidden;
+        }
+        
+        .star {
+            position: absolute;
+            background-color: #fff;
+            border-radius: 50%;
+            animation: twinkle 5s infinite;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 1; }
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 800px;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            padding: 20px;
+        }
+        
+        .title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 4rem;
+            color: #ffdd59;
+            margin-bottom: 30px;
+            text-shadow: 0 0 15px rgba(255, 221, 89, 0.7);
+            animation: pulse 2s infinite, glow 3s infinite alternate;
+        }
+        
+        .instructions {
+            margin: 20px 0 30px;
+            color: #a9b7e9;
+            font-style: italic;
+            font-size: 1.1rem;
+            text-shadow: 0 0 10px rgba(169, 183, 233, 0.5);
+        }
+        
+        /* Flores con animación y brillo mágico */
+        .flower-container {
+            position: relative;
+            height: 250px;
+            margin: 30px auto;
+            perspective: 1000px;
+        }
+        
+        .flower {
+            position: absolute;
+            filter: drop-shadow(0 0 8px rgba(255, 221, 89, 0.8));
+            transition: transform 0.5s ease;
+            z-index: 5;
+        }
+        
+        .flower-large {
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 80px;
+            color: #ffdd59;
+            animation: float 6s infinite ease-in-out, glow-flower 4s infinite alternate;
+            z-index: 6;
+        }
+        
+        .flower-small {
+            font-size: 40px;
+            color: #ffed4e;
+            animation: assemble 8s infinite, glow-flower 3s infinite alternate;
+        }
+        
+        .flower-small:nth-child(2) { top: 20%; left: 20%; animation-delay: 0.5s, 0.5s; }
+        .flower-small:nth-child(3) { top: 20%; left: 80%; animation-delay: 1s, 1s; }
+        .flower-small:nth-child(4) { top: 80%; left: 20%; animation-delay: 1.5s, 1.5s; }
+        .flower-small:nth-child(5) { top: 80%; left: 80%; animation-delay: 2s, 2s; }
+        .flower-small:nth-child(6) { top: 10%; left: 50%; animation-delay: 2.5s, 2.5s; }
+        .flower-small:nth-child(7) { top: 50%; left: 10%; animation-delay: 3s, 3s; }
+        .flower-small:nth-child(8) { top: 50%; left: 90%; animation-delay: 3.5s, 3.5s; }
+        .flower-small:nth-child(9) { top: 90%; left: 50%; animation-delay: 4s, 4s; }
+        .flower-small:nth-child(10) { top: 30%; left: 30%; animation-delay: 4.5s, 4.5s; }
+        .flower-small:nth-child(11) { top: 30%; left: 70%; animation-delay: 5s, 5s; }
+        .flower-small:nth-child(12) { top: 70%; left: 30%; animation-delay: 5.5s, 5.5s; }
+        .flower-small:nth-child(13) { top: 70%; left: 70%; animation-delay: 6s, 6s; }
+        
+        /* Partículas brillantes alrededor de las flores */
+        .sparkle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background-color: #ffdd59;
+            border-radius: 50%;
+            opacity: 0;
+            animation: sparkle 3s infinite;
+            box-shadow: 0 0 10px 2px rgba(255, 221, 89, 0.8);
+            z-index: 4;
+        }
+        
+        /* Sobre con estilo anime */
+        .envelope {
+            position: relative;
+            width: 280px;
+            height: 180px;
+            background: linear-gradient(145deg, #ff7b54, #ff9e6d);
+            margin: 40px auto;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(255, 123, 84, 0.4), 0 0 20px rgba(255, 157, 109, 0.6);
+            cursor: pointer;
+            transition: transform 0.5s ease;
+            z-index: 10;
+            animation: envelope-glow 3s infinite alternate;
+        }
+        
+        .envelope:before {
+            content: '';
+            position: absolute;
+            top: -60px;
+            left: 0;
+            border-left: 140px solid transparent;
+            border-right: 140px solid transparent;
+            border-bottom: 60px solid #ff8a5b;
+            z-index: 3;
+            filter: drop-shadow(0 5px 5px rgba(0, 0, 0, 0.3));
+        }
+        
+        .envelope:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            z-index: 1;
+        }
+        
+        .envelope:hover {
+            transform: translateY(-10px) scale(1.05) rotate(2deg);
+            box-shadow: 0 15px 35px rgba(255, 123, 84, 0.6), 0 0 30px rgba(255, 157, 109, 0.8);
+        }
+        
+        .letter {
+            position: absolute;
+            background: linear-gradient(to bottom, #ffffff, #f8f8f8);
+            width: 90%;
+            height: 85%;
+            margin: 5%;
+            border-radius: 5px;
+            z-index: 2;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+        
+        .letter:before {
+            content: 'Para Camila';
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.8rem;
+            color: #e85d75;
+            text-shadow: 0 0 5px rgba(232, 93, 117, 0.3);
+        }
+        
+        /* Modal de carta con estilo anime */
+        .letter-container {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(to bottom, #fff9e6, #fff1cc);
+            border: 2px solid #d4af37;
+            border-radius: 15px;
+            padding: 40px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3), 0 0 20px rgba(212, 175, 55, 0.4);
+            z-index: 1000;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        .letter-content {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.7rem;
+            color: #5c3317;
+            line-height: 1.6;
+            text-align: left;
+            white-space: pre-line;
+        }
+        
+        .typewriter {
+            border-right: 2px solid #8B4513;
+            animation: blink 0.7s step-end infinite;
+        }
+        
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #e85d75;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            font-size: 1.4rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s, background 0.3s;
+            z-index: 1001;
+        }
+        
+        .close-btn:hover {
+            transform: scale(1.1);
+            background: #c53d5c;
+        }
+        
+        /* Corazones con estilo anime */
+        .hearts {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .heart {
+            position: absolute;
+            font-size: 24px;
+            color: #e85d75;
+            opacity: 0;
+            text-shadow: 0 0 10px rgba(232, 93, 117, 0.7);
+            animation: fall 5s linear infinite;
+        }
+        
+        /* Reproductor de música oculto */
+        .music-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 100;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+            width: 0;
+            height: 0;
+            overflow: hidden;
+        }
+        
+        .music-container:hover {
+            opacity: 1;
+        }
+        
+        /* Partículas flotantes estilo anime */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            animation: particle-float 15s infinite linear;
+        }
+        
+        /* Animaciones */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translate(-50%, -45%); }
+            to { opacity: 1; transform: translate(-50%, -50%); }
+        }
+        
+        @keyframes blink {
+            from, to { border-color: transparent; }
+            50% { border-color: #8B4513; }
+        }
+        
+        @keyframes fall {
+            0% {
+                transform: translateY(-10px) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes glow {
+            0% { text-shadow: 0 0 15px rgba(255, 221, 89, 0.7); }
+            100% { text-shadow: 0 0 25px rgba(255, 221, 89, 0.9), 0 0 35px rgba(255, 221, 89, 0.6); }
+        }
+        
+        @keyframes glow-flower {
+            0% { filter: drop-shadow(0 0 8px rgba(255, 221, 89, 0.8)); }
+            100% { filter: drop-shadow(0 0 15px rgba(255, 221, 89, 0.9)) brightness(1.2); }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translate(-50%, -50%) translateY(0) rotate(0deg); }
+            50% { transform: translate(-50%, -50%) translateY(-15px) rotate(5deg); }
+        }
+        
+        @keyframes assemble {
+            0%, 100% { transform: translate(0, 0) scale(1) rotate(0deg); }
+            25% { transform: translate(5px, -5px) scale(1.05) rotate(5deg); }
+            50% { transform: translate(-5px, 5px) scale(1.1) rotate(-5deg); }
+            75% { transform: translate(5px, 5px) scale(1.05) rotate(5deg); }
+        }
+        
+        @keyframes envelope-glow {
+            0% { box-shadow: 0 10px 30px rgba(255, 123, 84, 0.4), 0 0 20px rgba(255, 157, 109, 0.6); }
+            100% { box-shadow: 0 10px 30px rgba(255, 123, 84, 0.6), 0 0 30px rgba(255, 157, 109, 0.8); }
+        }
+        
+        @keyframes sparkle {
+            0% { opacity: 0; transform: translate(0, 0) scale(0); }
+            50% { opacity: 1; transform: translate(20px, -20px) scale(1.5); }
+            100% { opacity: 0; transform: translate(40px, -40px) scale(0); }
+        }
+        
+        @keyframes particle-float {
+            0% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .title {
+                font-size: 3rem;
+            }
+            
+            .letter-content {
+                font-size: 1.5rem;
+            }
+            
+            .envelope {
+                width: 220px;
+                height: 140px;
+            }
+            
+            .envelope:before {
+                border-left: 110px solid transparent;
+                border-right: 110px solid transparent;
+            }
+            
+            .flower-large {
+                font-size: 65px;
+            }
+            
+            .flower-small {
+                font-size: 35px;
+            }
+            
+            .letter-container {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="galaxy" id="galaxy"></div>
+    <div class="particles" id="particles"></div>
+    
+    <div class="container">
+        <h1 class="title">Para Camila</h1>
+        
+        <p class="instructions">Haz clic en el sobre para abrir la carta</p>
+        
+        <div class="flower-container" id="flower-container">
+            <div class="flower flower-large">🌻</div>
+            <div class="flower flower-small">🌻</div>
+            <div class="flower flower-small">🌻</div>
+            <div class="flower flower-small">🌻</div>
+            <div class="flower flower-small">🌻</div>
+            <div class="flower flower-small">🌻</div>
+            <div class="flower flower-small">🌻</div>
+            <div class="flower flower-small">🌻</div>
+            <div class="flower flower-small">🌻</div>
+            <div class="flower flower-small">🌻</div>
+            <div class="flower flower-small">🌻</div>
+            <div class="flower flower-small">🌻</div>
+            <div class="flower flower-small">🌻</div>
+        </div>
+        
+        <div class="envelope" id="envelope">
+            <div class="letter"></div>
+        </div>
+        
+        <div class="hearts" id="hearts"></div>
+        
+        <div class="letter-container" id="letter-container">
+            <button class="close-btn" id="close-btn">×</button>
+            <div class="letter-content" id="letter-content"></div>
+        </div>
+    </div>
+
+    <!-- Contenedor de música oculto -->
+    <div class="music-container">
+        <iframe id="youtube-player" width="0" height="0" src="about:blank" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const envelope = document.getElementById('envelope');
+            const letterContainer = document.getElementById('letter-container');
+            const letterContent = document.getElementById('letter-content');
+            const closeBtn = document.getElementById('close-btn');
+            const heartsContainer = document.getElementById('hearts');
+            const galaxy = document.getElementById('galaxy');
+            const particlesContainer = document.getElementById('particles');
+            const flowerContainer = document.getElementById('flower-container');
+            const youtubePlayer = document.getElementById('youtube-player');
+            
+            // Variable para controlar si la música ya se ha reproducido
+            let musicPlayed = false;
+            
+            // Texto de la carta
+            const message = `Hola Camila
+
+Quería darte este pequeño regalo que elegí pensando en ti. No es algo grande ni lujoso, pero lo escogí con la esperanza de que te guste y lo guardes como un detalle especial. Es un girasol, porque me recuerda a alguien que ilumina los días y transmite calidez… como tú.
+
+Sé que no hablamos tan seguido como me gustaría, pero cada momento que compartimos, aunque sea breve, es importante para mí y me alegra el día. A veces me pongo nervioso cuando estás cerca, pero quiero que sepas que te aprecio mucho.
+
+Este collar es un detalle sencillo, escogido con cariño. Me gusta pensar que, así como el girasol sigue la luz del sol, este regalo pueda recordarte que alguien piensa en ti con afecto y que valora tenerte en su vida.
+
+Espero que cada vez que lo veas, te saque una sonrisa y te recuerde que alguien te aprecia de verdad.
+
+Con afecto,
+Yuri`;
+            
+            // Crear estrellas en el fondo galáctico
+            function createStars() {
+                for (let i = 0; i < 200; i++) {
+                    const star = document.createElement('div');
+                    star.classList.add('star');
+                    star.style.width = Math.random() * 3 + 'px';
+                    star.style.height = star.style.width;
+                    star.style.left = Math.random() * 100 + 'vw';
+                    star.style.top = Math.random() * 100 + 'vh';
+                    star.style.animationDelay = Math.random() * 5 + 's';
+                    galaxy.appendChild(star);
+                }
+            }
+            
+            // Crear partículas flotantes
+            function createParticles() {
+                for (let i = 0; i < 50; i++) {
+                    const particle = document.createElement('div');
+                    particle.classList.add('particle');
+                    const size = Math.random() * 3 + 1;
+                    particle.style.width = size + 'px';
+                    particle.style.height = size + 'px';
+                    particle.style.left = Math.random() * 100 + 'vw';
+                    particle.style.top = Math.random() * 100 + 'vh';
+                    particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                    particle.style.animationDelay = Math.random() * 5 + 's';
+                    particlesContainer.appendChild(particle);
+                }
+            }
+            
+            // Crear brillos alrededor de las flores
+            function createSparkles() {
+                for (let i = 0; i < 20; i++) {
+                    const sparkle = document.createElement('div');
+                    sparkle.classList.add('sparkle');
+                    
+                    // Posicionar alrededor de las flores
+                    const left = Math.random() * 80 + 10;
+                    const top = Math.random() * 80 + 10;
+                    const delay = Math.random() * 3;
+                    
+                    sparkle.style.left = left + '%';
+                    sparkle.style.top = top + '%';
+                    sparkle.style.animationDelay = delay + 's';
+                    
+                    flowerContainer.appendChild(sparkle);
+                }
+            }
+            
+            // Crear corazones flotantes
+            function createHearts() {
+                const heart = document.createElement('div');
+                heart.classList.add('heart');
+                heart.innerHTML = '❤';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDuration = (Math.random() * 4 + 3) + 's';
+                heart.style.fontSize = (Math.random() * 15 + 15) + 'px';
+                heartsContainer.appendChild(heart);
+                
+                setTimeout(() => {
+                    heart.remove();
+                }, 5000);
+            }
+            
+            // Efecto de máquina de escribir
+            function typeWriter(text, element, speed = 50) {
+                let i = 0;
+                element.innerHTML = '';
+                
+                function type() {
+                    if (i < text.length) {
+                        element.innerHTML = text.substring(0, i + 1) + '<span class="typewriter">|</span>';
+                        i++;
+                        setTimeout(type, speed);
+                    } else {
+                        element.innerHTML = text;
+                    }
+                }
+                type();
+            }
+            
+            // Reproducir música de YouTube
+            function playMusic() {
+                if (!musicPlayed) {
+                    // Extraer el ID del video de YouTube desde la URL
+                    const youtubeUrl = 'https://youtu.be/s7vT3qUG7sI';
+                    const videoId = youtubeUrl.split('/').pop().split('?')[0];
+                    
+                    // Configurar el iframe para reproducir automáticamente
+                    youtubePlayer.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&loop=1&playlist=${videoId}&controls=0&modestbranding=1&rel=0`;
+                    
+                    musicPlayed = true;
+                }
+            }
+            
+            // Abrir carta
+            envelope.addEventListener('click', function() {
+                letterContainer.style.display = 'block';
+                typeWriter(message, letterContent, 40);
+                
+                // Reproducir música automáticamente al abrir la carta
+                playMusic();
+                
+                // Crear corazones cada 300ms
+                const heartInterval = setInterval(createHearts, 300);
+                
+                // Detener corazones después de 3 segundos
+                setTimeout(() => {
+                    clearInterval(heartInterval);
+                }, 3000);
+            });
+            
+            // Cerrar carta
+            closeBtn.addEventListener('click', function() {
+                letterContainer.style.display = 'none';
+            });
+            
+            // Cerrar al hacer clic fuera de la carta
+            letterContainer.addEventListener('click', function(e) {
+                if (e.target === letterContainer) {
+                    letterContainer.style.display = 'none';
+                }
+            });
+            
+            // Crear algunos corazones iniciales
+            for (let i = 0; i < 15; i++) {
+                setTimeout(createHearts, i * 200);
+            }
+            
+            // Inicializar efectos de fondo
+            createStars();
+            createParticles();
+            createSparkles();
+        });
+    </script>
+</body>
+</html>
